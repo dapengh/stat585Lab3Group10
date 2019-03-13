@@ -11,3 +11,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/stharms/stat585Lab3Group10
 BugReports: https://github.com/stharms/stat585Lab3Group10/issues
+Depends: sf, tidyverse, purrr, R (>= 2.10)
+Suggests: testthat
+Imports:
+RoxygenNote: 6.1.1
