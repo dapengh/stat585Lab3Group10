@@ -1,11 +1,13 @@
 Package: stat585Lab3Group10
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Formats Spatial Geometry Files
 Version: 0.1.0
-Author: Who wrote it
+Author: Steve Harms, Dapeng Hu, Zihao Chen, Yonghui Huo
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/stharms/stat585Lab3Group10
+BugReports: https://github.com/stharms/stat585Lab3Group10/issues
