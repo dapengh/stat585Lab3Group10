@@ -1,17 +1,16 @@
 Package: stat585Lab3Group10
 Type: Package
-Title: Formats Spatial Geometry Files
+Title: Format Spatial Geometry Files
 Version: 0.1.0
-Author: Steve Harms, Dapeng Hu, Zihao Chen, Yonghui Huo
+Author: Steve Harms, Dapeng Hu, Yonghui Huo, Zihao Chen
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: MIT
+Description: This package contains several functions for formatting shapefiles into formats that are useful for quick plotting.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/stharms/stat585Lab3Group10
 BugReports: https://github.com/stharms/stat585Lab3Group10/issues
-Depends: sf, tidyverse, purrr, R (>= 2.10)
-Suggests: testthat
-Imports:
+Depends: R (>= 2.10),tidyverse,purrr,sf
+Suggests: testthat,ggplot2
+Imports:  maptools,
 RoxygenNote: 6.1.1

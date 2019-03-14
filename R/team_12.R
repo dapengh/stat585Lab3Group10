@@ -1,25 +1,24 @@
-#' Get polygon and geographic information from a shapefile that is thinned to a more feasible dimension. This is team 12's results
+#' @describe Get polygon and geographic information from a shapefile that is thinned to a more feasible dimension. This is team 12's results
 #' @name team_12
-#' @param file path to a shapefile (.shp) with spatial geometry data OR a simple features object that contains a geometry column
-#' @param tolerance a value greater than 0
-#' @param fileread Should the data be read from a file? Default is TRUE, use fileread=FALSE if the object is already a simple features object in the environment
+#' @param file path to a shapefile (.shp) with spatial geometry data OR (if \code{fileread = F}) a simple features object that contains a geometry column
+#' @param tolerance a numeric value greater than 0
+#' @param fileread Should the data be read from a file? Default is TRUE, use fileread=FALSE if the object is already a simple features object in the environment,
+#' perhaps read in via \code{read_sf()}. This may be useful if you already have the file read into the environment for another purpose
 #' @export
 #' @return A data frame, with each row corresponding to a unique polygon point and its associated polygon and geographic information.
 #' @examples
 #' #get data for plotting
 #' oz <- ozbig
-#'
 #' aus <- team_12(file = oz, tolerance = 0.1, fileread=FALSE)
 #'
-#' head(aus)
-#'
-
+#' #plot using ggplot2
+#' library(ggplot2)
+#' ggplot(data=aus)+geom_path(aes(x=long,y=lat,group=pgroup)) + theme_bw()
 team_12 <- function(file, tolerance=0.1, fileread=TRUE){
-
-  if(tolerance <= 0){stop('tolerance less than 0. Choose a different value')}
-
+  #test tolerance level
+  if(tolerance <= 0){stop('tolerance <= 0. Choose a postive value')}
+  #read file as object
   stbig<-file
-
   if(fileread==T){
     assert_that(is.character(file) , is.readable(file),
                msg = 'File path not readable')
@@ -30,6 +29,7 @@ team_12 <- function(file, tolerance=0.1, fileread=TRUE){
   if(!is.list(stbig)){stop('Check file type. Simple features not output as list')}
   if(!('geometry'%in%names(stbig))){stop('No geometry information found')}
 
+
   st <- maptools::thinnedSpatialPoly(as(stbig, "Spatial"), tolerance = tolerance, minarea = 0.001, topologyPreserve = TRUE)
   st <- st_as_sf(st)
 
@@ -38,7 +38,8 @@ team_12 <- function(file, tolerance=0.1, fileread=TRUE){
   colnames(res) <- c('long','lat','order','group','geo')
   res <- as.data.frame(res)
 
-  outdf <- res %>% mutate(Country = st$NAME_0[geo], Name = st$NAME_1[geo], Type = st$ENGTYPE_1[geo], Abbr = st$HASC_1[geo])
+  outdf <- res %>% mutate(Country = st$NAME_0[geo], Name = st$NAME_1[geo],
+                          Type = st$ENGTYPE_1[geo], Abbr = st$HASC_1[geo], pgroup = as.factor(paste(geo,group,sep='.')))
 
   if(is.null(dim(outdf)) | !is.data.frame(outdf)) {warning('No data returned. Check geometry object or file path')}
   return(outdf)

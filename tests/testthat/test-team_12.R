@@ -8,3 +8,7 @@ test_that("only takes correct shapefiles", {
 test_that("find geometry", {
   expect_error(team_12(list(ozbig[[1]],ozbig[[2]]),fileread=F))
 })
+
+test_that("output is a data frame",{
+  expect_s3_class(team_12(ozbig,fileread=F), "data.frame")
+})
