@@ -1,7 +1,8 @@
-#' @describe Get polygon and geographic information from a shapefile that is thinned to a more feasible dimension. This is team 12's results
+#' Polygon and geographic information from a shapefile
+#' @description Get polygon and geographic information from a shapefile that is thinned to a more feasible dimension. This is team 12's results
 #' @name team_12
 #' @param file path to a shapefile (.shp) with spatial geometry data OR (if \code{fileread = F}) a simple features object that contains a geometry column
-#' @param tolerance a numeric value greater than 0
+#' @param tolerance  A numeric value greater than 0. How much should the data set be thinned?
 #' @param fileread Should the data be read from a file? Default is TRUE, use fileread=FALSE if the object is already a simple features object in the environment,
 #' perhaps read in via \code{read_sf()}. This may be useful if you already have the file read into the environment for another purpose
 #' @export
@@ -14,13 +15,16 @@
 #' #plot using ggplot2
 #' library(ggplot2)
 #' ggplot(data=aus)+geom_path(aes(x=long,y=lat,group=pgroup)) + theme_bw()
+#'
+
 team_12 <- function(file, tolerance=0.1, fileread=TRUE){
-  #test tolerance level
-  if(tolerance <= 0){stop('tolerance <= 0. Choose a postive value')}
+  assertthat::assert_that(!is.logical(fileread), msg='fileread error. Are you reading from directly from a file? Enter a logical value.')
+?  #test tolerance level
+  assertthat::assert_that(tolerance>0, is.numeric(tolerance), length(tolerance)==1, msg='Invalid tolerance. Choose a postive numeric value')
   #read file as object
   stbig<-file
   if(fileread==T){
-    assert_that(is.character(file) , is.readable(file),
+    assertthat::assert_that(is.character(file) , is.readable(file),
                msg = 'File path not readable')
 
     stbig <- read_sf(file)

@@ -1,6 +1,8 @@
 context("test-team_12")
 
 test_that("only takes correct shapefiles", {
+  expect_error(team_12(ozbig, tolerance = 0))
+  expect_error(team_12(ozbig, tolerance = TRUE))
   expect_error(team_12(ozbig,fileread=T))
   expect_error(team_12(file='./man/makedata.Rd'))
 })

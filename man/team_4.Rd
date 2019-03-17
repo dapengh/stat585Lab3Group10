@@ -21,7 +21,7 @@ Get polygon and geographic information from a shapefile that is thinned to a mor
 }
 \examples{
 #get data for plotting
-oz <- data(australia)
+oz <- ozbig
 
 aus <- team_4(file = oz, tolerance = 0.1, fileread=FALSE)
 

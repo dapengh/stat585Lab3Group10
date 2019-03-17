@@ -7,7 +7,7 @@
 #' @return A data frame, with each row corresponding to a unique polygon and its information. The last column ('data') is a dataframe with a set of points defining the extent of the polygon
 #' @examples
 #' #get data for plotting
-#' oz <- data(australia)
+#' oz <- ozbig
 #'
 #' aus <- team_4(file = oz, tolerance = 0.1, fileread=FALSE)
 #'
@@ -30,7 +30,6 @@ team_4 <- function(file, tolerance=0.1, fileread=TRUE){
   }
 
   if(!is.list(st)){stop('Check file type. Simple features not output as list')}
-  if(st_geometry(st))
     spdf <- makedata(st, tolerance=tolerance)
   outdf <- spdf %>% group_by(Country = NAME_0, Name = NAME_1, Type = ENGTYPE_1, HASC = HASC_1, polygon=group) %>%
     nest(long, lat, order)
@@ -39,7 +38,7 @@ team_4 <- function(file, tolerance=0.1, fileread=TRUE){
   return(outdf)
 }
 
-#' Helper function to convert polygon to data frame
+# Helper function to convert polygon to data frame
 poly2df <- function(feature, unlist = T) {
   if (unlist) feature <- unlist(feature, recursive = F)
   lapply(feature, function(x) {
@@ -47,9 +46,9 @@ poly2df <- function(feature, unlist = T) {
   }) %>% tibble(polygon = .)
 }
 
-#' Helper function to convert polygon to data frame
+# Helper function to convert polygon to data frame
 makedata <- function(data, thin = T, unlist = T, tolerance=0.1) {
-  if (thin) {
+  if (thin == T) {
     oz_st <- maptools::thinnedSpatialPoly(as(data, "Spatial"), tol = tolerance, min = 0.001, topologyPreserve = T)
     oz <- st_as_sf(oz_st)  # install package: rgeos
   } else oz <- data

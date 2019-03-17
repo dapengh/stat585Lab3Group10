@@ -2,16 +2,17 @@
 % Please edit documentation in R/team_12.R
 \name{team_12}
 \alias{team_12}
-\title{Get polygon and geographic information from a shapefile that is thinned to a more feasible dimension. This is team 12's results}
+\title{Polygon and geographic information from a shapefile}
 \usage{
 team_12(file, tolerance = 0.1, fileread = TRUE)
 }
 \arguments{
-\item{file}{path to a shapefile (.shp) with spatial geometry data OR a simple features object that contains a geometry column}
+\item{file}{path to a shapefile (.shp) with spatial geometry data OR (if \code{fileread = F}) a simple features object that contains a geometry column}
 
-\item{tolerance}{a value greater than 0}
+\item{tolerance}{A numeric value greater than 0. How much should the data set be thinned?}
 
-\item{fileread}{Should the data be read from a file? Default is TRUE, use fileread=FALSE if the object is already a simple features object in the environment}
+\item{fileread}{Should the data be read from a file? Default is TRUE, use fileread=FALSE if the object is already a simple features object in the environment,
+perhaps read in via \code{read_sf()}. This may be useful if you already have the file read into the environment for another purpose}
 }
 \value{
 A data frame, with each row corresponding to a unique polygon point and its associated polygon and geographic information.
@@ -22,9 +23,10 @@ Get polygon and geographic information from a shapefile that is thinned to a mor
 \examples{
 #get data for plotting
 oz <- ozbig
-
 aus <- team_12(file = oz, tolerance = 0.1, fileread=FALSE)
 
-head(aus)
+#plot using ggplot2
+library(ggplot2)
+ggplot(data=aus)+geom_path(aes(x=long,y=lat,group=pgroup)) + theme_bw()
 
 }
