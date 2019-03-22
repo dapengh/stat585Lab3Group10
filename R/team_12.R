@@ -18,8 +18,8 @@
 #'
 
 team_12 <- function(file, tolerance=0.1, fileread=TRUE){
-  assertthat::assert_that(!is.logical(fileread), msg='fileread error. Are you reading from directly from a file? Enter a logical value.')
-?  #test tolerance level
+  assertthat::assert_that(is.logical(fileread), msg='fileread error. Are you reading from directly from a file? Enter a logical value.')
+  #test tolerance level
   assertthat::assert_that(tolerance>0, is.numeric(tolerance), length(tolerance)==1, msg='Invalid tolerance. Choose a postive numeric value')
   #read file as object
   stbig<-file
