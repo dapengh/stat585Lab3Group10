@@ -47,4 +47,3 @@ team_10 <- function(file, tolerance=0.1, fileread=TRUE){
 
   return(shpdf)
 }
-
