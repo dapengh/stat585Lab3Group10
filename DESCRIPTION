@@ -12,5 +12,5 @@ URL: https://github.com/stharms/stat585Lab3Group10
 BugReports: https://github.com/stharms/stat585Lab3Group10/issues
 Depends: R (>= 2.10),tidyverse,purrr,sf
 Suggests: testthat,ggplot2,rgeos, assertthat
-Imports:  maptools
+Imports:  maptools, magrittr
 RoxygenNote: 6.1.1
