@@ -22,7 +22,7 @@ team_10 <- function(file, tolerance=0.1, fileread=TRUE){
   assertthat::assert_that(tolerance>0, is.numeric(tolerance), length(tolerance)==1, msg='Invalid tolerance. Choose a postive numeric value')
   #read file as object
   if(fileread==T){
-    assertthat::assert_that(is.character(file) , is.readable(file), msg = 'File path not readable')
+    assertthat::assert_that(is.character(file) , assertthat::is.readable(file), msg = 'File path not readable')
     stbig <- sf::read_sf(file)
   } else {
     stbig <- file
@@ -32,7 +32,7 @@ team_10 <- function(file, tolerance=0.1, fileread=TRUE){
   if(!('geometry'%in%names(stbig))){stop('No geometry information found')}
 
   shp_st <- maptools::thinnedSpatialPoly(
-    sf::as(stbig, "Spatial"), tolerance = tolerance,
+    as(stbig, "Spatial"), tolerance = tolerance,
     minarea = 0.001, topologyPreserve = TRUE)
   shp <- st_as_sf(shp_st)
   shpSmall <- shp %>% select(NAME_1, geometry) %>%
@@ -41,7 +41,7 @@ team_10 <- function(file, tolerance=0.1, fileread=TRUE){
   st_geometry(shpSmall) <- NULL
   shpSmall <- shpSmall %>% mutate(coord = coord %>% map(.f = function(m) as_tibble(m)),group = row_number()) %>%  unnest %>% setNames(c("name", "region","group", "long", "lat"))
 
-  shpdf <- shpSmall %>% mutate(Country = shp$NAME_0[region], Name = st$NAME_1[region],Type = st$ENGTYPE_1[region], Abbr = st$HASC_1[region], pgroup = as.factor(paste(region,group,sep='.')))
+  shpdf <- shpSmall %>% mutate(Country = shp$NAME_0[region], Name = shp$NAME_1[region],Type = shp$ENGTYPE_1[region], Abbr = shp$HASC_1[region], pgroup = as.factor(paste(region,group,sep='.')))
 
   if(is.null(dim(shpdf)) | !is.data.frame(shpdf)) {warning('No data returned. Check geometry object or file path')}
 
