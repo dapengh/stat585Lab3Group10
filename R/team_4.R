@@ -23,7 +23,7 @@ team_4 <- function(file, tolerance=0.1, fileread=TRUE){
 
   st<-file
   if(fileread==T){
-    assertthat(is.character(file) , is.readable(file),
+    assertthat::assert_that(is.character(file) , assertthat::is.readable(file),
                msg = 'File path not readable')
 
     st <- read_sf(file)
