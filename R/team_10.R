@@ -32,7 +32,7 @@ team_10 <- function(file, tolerance=0.1, fileread=TRUE){
   if(!('geometry'%in%names(stbig))){stop('No geometry information found')}
 
   shp_st <- maptools::thinnedSpatialPoly(
-    as(stbig, "Spatial"), tolerance = tolerance,
+    sf::as(stbig, "Spatial"), tolerance = tolerance,
     minarea = 0.001, topologyPreserve = TRUE)
   shp <- st_as_sf(shp_st)
   shpSmall <- shp %>% select(NAME_1, geometry) %>%
