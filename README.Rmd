@@ -1,0 +1,9 @@
+---
+title: "README"
+author: "Lab3_Group10"
+date: "3/23/2019"
+output: html_document
+---
+
+Link to our repo
+`https://github.com/stharms/stat585Lab3Group10`
