@@ -41,7 +41,9 @@ team_10 <- function(file, tolerance=0.1, fileread=TRUE){
   st_geometry(shpSmall) <- NULL
   shpSmall <- shpSmall %>% mutate(coord = coord %>% map(.f = function(m) as_tibble(m)),group = row_number()) %>%  unnest %>% setNames(c("name", "region","group", "long", "lat"))
 
-  shpdf <- shpSmall %>% mutate(Country = shp$NAME_0[region], Name = shp$NAME_1[region],Type = shp$ENGTYPE_1[region], Abbr = shp$HASC_1[region], pgroup = as.factor(paste(region,group,sep='.')))
+  shpdf <- shpSmall %>% mutate(country = shp$NAME_0[region], type = shp$ENGTYPE_1[region], abbr = shp$HASC_1[region], pgroup = as.factor(paste(region,group,sep='.')))
+
+  shpdf <- shpdf[,c(6,1,7,8,2,3,9,4,5)]
 
   if(is.null(dim(shpdf)) | !is.data.frame(shpdf)) {warning('No data returned. Check geometry object or file path')}
 
