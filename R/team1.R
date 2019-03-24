@@ -6,8 +6,8 @@
 #' @return plot
 #' @export
 #' @examples
-#' team1(file="./data/gadm36_AUS_shp/gadm36_AUS_1.shp", tolerance=0.1)
-team1=function(file, tolerance){
+#' team_1(file="./data/gadm36_AUS_shp/gadm36_AUS_1.shp", tolerance=0.1)
+team_1=function(file, tolerance){
 
   if(tolerance <= 0){stop('Choose a value which larger than 0.')}
 
