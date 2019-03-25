@@ -1,7 +1,7 @@
 context("test-team_1")
 
 test_that("output is a data frame",{
-  expect_s3_class(team_1(ozbig), "data.frame")
+  expect_s3_class(team_1(ozbig, tolerance=0.1), "data.frame")
 })
 
 
