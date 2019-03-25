@@ -10,7 +10,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/stharms/stat585Lab3Group10
 BugReports: https://github.com/stharms/stat585Lab3Group10/issues
-Depends: R (>= 2.10),tidyverse,purrr,sf
+Depends: R (>= 2.10),tidyverse,sf
 Suggests: testthat,ggplot2,rgeos, assertthat
-Imports:  maptools, magrittr
+Imports:  maptools
 RoxygenNote: 6.1.1

@@ -2,19 +2,24 @@
 % Please edit documentation in R/team1.R
 \name{team_1}
 \alias{team_1}
-\title{lab3 work with team 1 function}
+\title{lab3 work with team_1 function}
 \usage{
-team_1(file, tolerance)
+team_1(file, tolerance, fileread = TRUE)
 }
 \arguments{
-\item{tolerance}{}
+\item{file}{path to a shapefile (.shp) with spatial geometry data OR (if \code{fileread = F}) a simple features object}
+
+\item{tolerance}{A numeric value greater than 0.}
+
+\item{fileread}{If the file can be read in memory or not. Default is TRUE, use fileread=FALSE if the object is already a simple features object}
 }
 \value{
 plot
 }
 \description{
-lab3 work with team 1 function
+lab3 work with team_1 function
 }
 \examples{
-team_1(file="gadm36_AUS_1.shp", tolerance=0.1)
+ozbig1 <- ozbig
+team_1(file=ozbig1, tolerance=0.1, fileread=FALSE)
 }
