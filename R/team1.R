@@ -1,4 +1,4 @@
-#' lab3 work with team 1 function
+#' lab3 work with team_1 function
 #'
 #' @param file
 #' @param tolerance
