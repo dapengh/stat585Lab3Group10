@@ -7,7 +7,7 @@
 #' @import sf tidyverse
 #' @export
 #' @examples
-#' team_1(ozbig, tolerance=0.1)
+#' team_1(file=ozbig, tolerance=0.1)
 team_1=function(file, tolerance){
 
   if(tolerance <= 0){stop('Choose a value which larger than 0.')}
