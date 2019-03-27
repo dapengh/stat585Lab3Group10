@@ -1,22 +1,30 @@
-#' lab3 work with team 1 function
+#' lab3 work with team_1 function
 #'
-#' @param file
-#' @param tolerance
-#'
+#' @param file path to a shapefile (.shp) with spatial geometry data OR (if \code{fileread = F}) a simple features object
+#' @param tolerance A numeric value greater than 0.
+#' @param fileread If the file can be read in memory or not. Default is TRUE, use fileread=FALSE if the object is already a simple features object
 #' @return plot
+#' @import sf tidyverse
 #' @export
 #' @examples
-#' team1(file="./data/gadm36_AUS_shp/gadm36_AUS_1.shp", tolerance=0.1)
-team1=function(file, tolerance){
+#' ozbig1 <- ozbig
+#' team_1(file=ozbig1, tolerance=0.1, fileread=FALSE)
+team_1=function(file, tolerance, fileread=TRUE){
 
   if(tolerance <= 0){stop('Choose a value which larger than 0.')}
 
-  ozbig <- read_sf(file)
+  #read file as object
+  ozbig1<-file
+  if(fileread==T){
+    assertthat::assert_that(is.character(file) , assertthat::is.readable(file),
+                            msg = 'File path not readable')
 
-  stopifnot(is.list(ozbig))
+    ozbig1 <- sf::read_sf(file)
+    stopifnot(is.list(ozbig1))
+  }
 
-  oz_st <- maptools::thinnedSpatialPoly(as(ozbig, "Spatial"), tolerance = tolerance, minarea = 0.001, topologyPreserve = TRUE)
-  oz <- st_as_sf(oz_st)
+  oz_st <- maptools::thinnedSpatialPoly(as(ozbig1, "Spatial"), tolerance = tolerance, minarea = 0.001, topologyPreserve = TRUE)
+  oz <- sf::st_as_sf(oz_st)
   df.oz.purr <- oz$geometry %>%
   map_depth(3, data.frame) %>%
   purrr::flatten() %>%
@@ -30,4 +38,4 @@ team1=function(file, tolerance){
 }
 # usethis::use_pipe()
 # usethis::use_testthat()
-# usethis::use_test("team1")
+# usethis::use_test("team_1")

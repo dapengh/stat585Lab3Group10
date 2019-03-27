@@ -24,7 +24,7 @@ team_12 <- function(file, tolerance=0.1, fileread=TRUE){
   #read file as object
   stbig<-file
   if(fileread==T){
-    assertthat::assert_that(is.character(file) , is.readable(file),
+    assertthat::assert_that(is.character(file) , assertthat::is.readable(file),
                msg = 'File path not readable')
 
     stbig <- read_sf(file)
